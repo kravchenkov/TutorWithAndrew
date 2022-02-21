@@ -61,7 +61,6 @@ namespace TutorialsWithAndrew
         static void Main(string[] args)
         {
             StringList list = new StringList();
-            list.Show();
 
             string path = "apka.txt";
             
@@ -102,10 +101,9 @@ namespace TutorialsWithAndrew
                     catch (IndexOutOfRangeException e)
                     {
                         Console.WriteLine("You entered incorrect index");
-                    }
-                    list.WriteToFile(path);
+                    } 
                 }
-               
+                list.WriteToFile(path);
 
                 if (number == 5)
                     break;
