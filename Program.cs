@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 
+
 namespace TutorialsWithAndrew
 {
     class Program
@@ -31,17 +32,29 @@ namespace TutorialsWithAndrew
 
             public void Delete(int deleteIndex)
             {
+                if (deleteIndex >= array.Length || deleteIndex < 0)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
                 string[] newTasks2 = new string[array.Length - 1];
                 for (int i = 0; i < newTasks2.Length; i++)
                 {
                     newTasks2[i] = i < deleteIndex ? array[i] : array[i + 1];
+                    
                 }
                 array = newTasks2;
+                Console.WriteLine("Element succesfuly deleted");
             }
 
-            public void Read(string )
+            public void ReadFromFile (string file)
             {
+                array = File.ReadAllLines(file);
+            }
 
+            public void WriteToFile(string file)
+            {
+                File.WriteAllLines (file, array, Encoding.UTF8);
             }
         }
 
@@ -51,7 +64,8 @@ namespace TutorialsWithAndrew
             list.Show();
 
             string path = "apka.txt";
-            string[] tasks = File.ReadAllLines(path);
+            
+            list.ReadFromFile(path);
 
 
             for (; ; )
@@ -65,10 +79,7 @@ namespace TutorialsWithAndrew
                 int number = Convert.ToInt32(Console.ReadLine());
                 if (number == 2)
                 {
-                    for (int i = 0; i < tasks.Length; i++)
-                    {
-                        Console.WriteLine((i + 1) + ") " + tasks[i]);
-                    }
+                    list.Show();
                 }
                 if (number == 3)
                 {
@@ -84,17 +95,17 @@ namespace TutorialsWithAndrew
 
                     int deleteIndex = Convert.ToInt32(Console.ReadLine()) - 1;
 
-
-                    if (deleteIndex >= tasks.Length || deleteIndex < 0)
-                    {
-                        Console.WriteLine("You entered incorrect index");
-                    }
-                    else
+                    try
                     {
                         list.Delete(deleteIndex);
                     }
+                    catch (IndexOutOfRangeException e)
+                    {
+                        Console.WriteLine("You entered incorrect index");
+                    }
+                    list.WriteToFile(path);
                 }
-                File.WriteAllLines(path, tasks, Encoding.UTF8);
+               
 
                 if (number == 5)
                     break;
