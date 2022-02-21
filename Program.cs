@@ -39,7 +39,7 @@ namespace TutorialsWithAndrew
                 array = newTasks2;
             }
 
-            public void Read()
+            public void Read(string )
             {
 
             }
@@ -50,7 +50,7 @@ namespace TutorialsWithAndrew
             StringList list = new StringList();
             list.Show();
 
-            string path = @"C:\Users\Valentyn Kravchenko\Desktop\apka.txt";
+            string path = "apka.txt";
             string[] tasks = File.ReadAllLines(path);
 
 
